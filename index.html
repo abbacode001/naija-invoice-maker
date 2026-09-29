@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naija Invoice Maker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- APP TOP HEADER -->
+
+<header class="app-header">
+
+  <button
+    type="button"
+    class="sidebar-menu-button"
+    onclick="toggleSidebar()"
+    aria-label="Open menu">
+    ☰
+  </button>
+
+  <span class="app-header-logo">
+    ₦
+  </span>
+
+  <span class="app-header-title">
+    Naija Invoice Maker
+  </span>
+
+</header>
+
+
+<!-- SIDEBAR -->
+
+<aside
+  id="sidebar"
+  class="sidebar">
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-title">
+      ₦ Naija Invoice Maker
+    </div>
+
+    <button
+      type="button"
+      class="sidebar-close"
+      onclick="closeSidebar()"
+      aria-label="Close menu">
+      ×
+    </button>
+
+  </div>
+
+
+  <nav class="sidebar-menu">
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='dashboard.html'">
+      🏠 Dashboard
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='index.html'">
+      🧾 Create Invoice
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='invoice-history.html'">
+      📋 Invoice History
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='customers.html'">
+      👥 Customers
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='business.html'">
+      🏢 Business
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='settings.html'">
+      ⚙️ Settings
+    </button>
+
+    <button
+       type="button"
+       class="sidebar-link"
+       onclick="window.location.href='subscription.html'">
+        💳 Subscription
+    </button>
+
+    <div class="sidebar-divider"></div>
+
+    <button
+      type="button"
+      id="sidebarLogoutBtn"
+      class="sidebar-link">
+      🚪 Logout
+    </button>
+
+  </nav>
+
+</aside>
+
+
+<!-- SIDEBAR OVERLAY -->
+
+<div
+  id="sidebarOverlay"
+  class="sidebar-overlay"
+  onclick="closeSidebar()">
+</div>
+
+  <!-- MAIN APP -->
+  <main class="container">
+
+    <div class="page-header">
+      <div>
+        <h1>Create Invoice</h1>
+        <p>Create a professional invoice for your customer.</p>
+      </div>
+    </div>
+
+
+    <div class="invoice-layout">
+
+      <!-- LEFT SIDE -->
+      <section class="editor">
+
+        <!-- BUSINESS INFORMATION -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Business Information</h2>
+          </div>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Business Name</label>
+              <input
+                type="text"
+                id="businessName"
+                placeholder="e.g. Aisha Fashion House"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input
+                type="text"
+                id="businessPhone"
+                placeholder="08012345678"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                id="businessEmail"
+                placeholder="business@email.com"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Business Address</label>
+              <input
+                type="text"
+                id="businessAddress"
+                placeholder="Abuja, Nigeria"
+                oninput="updatePreview()"
+              >
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- CUSTOMER -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Customer Information</h2>
+          </div>
+
+<!-- EXISTING CUSTOMER -->
+<div class="form-group" style="margin-bottom: 20px;">
+  <label>Select Existing Customer</label>
+
+  <select id="existingCustomerSelect">
+    <option value="">-- Select a customer --</option>
+  </select>
+
+  <small style="display:block; margin-top:6px;">
+    Select an existing customer or enter a new customer below.
+  </small>
+
+  
+
+</div>
+
+
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Customer Name</label>
+              <input
+                type="text"
+                id="customerName"
+                placeholder="e.g. Musa Ibrahim"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Customer Phone</label>
+              <input
+                type="text"
+                id="customerPhone"
+                placeholder="08012345678"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Customer Email</label>
+              <input
+                type="email"
+                id="customerEmail"
+                placeholder="customer@email.com"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Customer Address</label>
+              <input
+                type="text"
+                id="customerAddress"
+                placeholder="Customer address"
+                oninput="updatePreview()"
+              >
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- INVOICE DETAILS -->
+        <div class="card">
+
+          <div class="card-header">
+            <h2>Invoice Details</h2>
+          </div>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Invoice Number</label>
+              <input
+                type="text"
+                id="invoiceNumber"
+                value="NIM-0001"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Status</label>
+
+              <select id="invoiceStatus" onchange="updatePreview()">
+                <option value="Unpaid">Unpaid</option>
+                <option value="Paid">Paid</option>
+                <option value="Draft">Draft</option>
+                <option value="Overdue">Overdue</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Invoice Date</label>
+
+              <input
+                type="date"
+                id="invoiceDate"
+                onchange="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Due Date</label>
+
+              <input
+                type="date"
+                id="dueDate"
+                onchange="updatePreview()"
+              >
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ITEMS -->
+        <div class="card">
+
+          <div class="card-header">
+            <h2>Invoice Items</h2>
+
+            <button
+              class="btn btn-small btn-primary"
+              onclick="addItem()"
+            >
+              + Add Item
+            </button>
+          </div>
+
+          <div id="itemsContainer"></div>
+
+        </div>
+
+
+        <!-- PAYMENT DETAILS -->
+        <div class="card">
+
+          <div class="card-header">
+            <h2>Payment Details</h2>
+          </div>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Bank Name</label>
+
+              <input
+                type="text"
+                id="bankName"
+                placeholder="e.g. GTBank"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Account Name</label>
+
+              <input
+                type="text"
+                id="accountName"
+                placeholder="Business account name"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>Account Number</label>
+
+              <input
+                type="text"
+                id="accountNumber"
+                placeholder="0123456789"
+                oninput="updatePreview()"
+              >
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DISCOUNT / VAT -->
+        <div class="card">
+
+          <div class="card-header">
+            <h2>Charges</h2>
+          </div>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>Discount Type</label>
+
+              <select id="discountType" onchange="updatePreview()">
+                <option value="none">No Discount</option>
+                <option value="percentage">Percentage (%)</option>
+                <option value="fixed">Fixed Amount (₦)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Discount Value</label>
+
+              <input
+                type="number"
+                id="discountValue"
+                value="0"
+                min="0"
+                oninput="updatePreview()"
+              >
+            </div>
+
+            <div class="form-group">
+              <label>VAT (%)</label>
+
+              <input
+                type="number"
+                id="vat"
+                value="0"
+                min="0"
+                max="100"
+                oninput="updatePreview()"
+              >
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- NOTES -->
+        <div class="card">
+
+          <div class="card-header">
+            <h2>Notes</h2>
+          </div>
+
+          <textarea
+            id="notes"
+            rows="4"
+            placeholder="Thank you for your business."
+            oninput="updatePreview()"
+          >Thank you for your business. Please make payment before the due date.</textarea>
+
+        </div>
+
+                <!-- INVOICE ACTIONS -->
+
+        <div class="invoice-actions">
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="saveInvoice()">
+            Save Invoice
+          </button>
+
+          <button type="button" 
+          class="btn btn-outline"
+           onclick="window.print()">
+             🖨️ Print Invoice
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-outline"
+            onclick="window.location.href='dashboard.html'">
+            Cancel
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- RIGHT SIDE -->
+      <section class="preview-section">
+
+        <div class="preview-toolbar">
+          <h2>Invoice Preview</h2>
+
+          <button
+            class="btn btn-whatsapp"
+            onclick="shareWhatsApp()"
+          >
+            WhatsApp
+          </button>
+        </div>
+
+
+        <!-- INVOICE -->
+        <div id="invoicePreview" class="invoice">
+
+          <div class="invoice-top">
+
+            <div class="invoice-business">
+
+  <div class="invoice-logo-wrapper">
+
+    <img
+      id="previewBusinessLogo"
+      class="invoice-business-logo"
+      src=""
+      alt="Business Logo"
+      style="display: none;"
+    >
+
+  </div>
+
+  <div>
+
+    <h1 id="previewBusinessName">
+      Your Business Name
+    </h1>
+
+    <p id="previewBusinessAddress">
+      Business Address
+    </p>
+
+    <p id="previewBusinessPhone">
+      Phone
+    </p>
+
+    <p id="previewBusinessEmail">
+      Email
+    </p>
+
+  </div>
+
+</div>
+
+            
+
+            <div class="invoice-title">
+              <h2>INVOICE</h2>
+
+              <span id="previewStatus" class="status unpaid">
+                UNPAID
+              </span>
+            </div>
+
+          </div>
+
+
+          <div class="invoice-meta">
+
+            <div>
+              <strong>Invoice Number</strong>
+              <p id="previewInvoiceNumber">NIM-0001</p>
+            </div>
+
+            <div>
+              <strong>Invoice Date</strong>
+              <p id="previewInvoiceDate">-</p>
+            </div>
+
+            <div>
+              <strong>Due Date</strong>
+              <p id="previewDueDate">-</p>
+            </div>
+
+          </div>
+
+
+          <div class="customer-box">
+
+            <div>
+              <span>BILL TO</span>
+
+              <h3 id="previewCustomerName">
+                Customer Name
+              </h3>
+
+              <p id="previewCustomerAddress">
+                Customer Address
+              </p>
+
+              <p id="previewCustomerPhone">
+                Phone
+              </p>
+
+              <p id="previewCustomerEmail">
+                Email
+              </p>
+            </div>
+
+          </div>
+
+
+          <table class="invoice-table">
+
+            <thead>
+
+              <tr>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="previewItems">
+
+            </tbody>
+
+          </table>
+
+
+          <div class="invoice-bottom">
+
+            <div class="payment-info">
+
+              <h3>Payment Details</h3>
+
+              <p>
+                Bank:
+                <span id="previewBankName">-</span>
+              </p>
+
+              <p>
+                Account Name:
+                <span id="previewAccountName">-</span>
+              </p>
+
+              <p>
+                Account Number:
+                <span id="previewAccountNumber">-</span>
+              </p>
+
+            </div>
+
+
+            <div class="totals">
+
+              <div>
+                <span>Subtotal</span>
+                <strong id="previewSubtotal">
+                  ₦0.00
+                </strong>
+              </div>
+
+              <div>
+                <span>Discount</span>
+                <strong id="previewDiscount">
+                  ₦0.00
+                </strong>
+              </div>
+
+              <div>
+                <span>VAT</span>
+                <strong id="previewVAT">
+                  ₦0.00
+                </strong>
+              </div>
+
+              <div class="grand-total">
+                <span>Total</span>
+                <strong id="previewTotal">
+                  ₦0.00
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="invoice-notes">
+
+            <h3>Notes</h3>
+
+            <p id="previewNotes">
+              Thank you for your business.
+            </p>
+
+          </div>
+
+
+          <div class="invoice-footer">
+            <p>Generated with Naija Invoice Maker</p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="supabase-confige.js"></script>
+
+  <script src="navigation.js"></script>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

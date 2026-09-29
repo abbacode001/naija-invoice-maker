@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subscription - Naija Invoice Maker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .subscription-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .subscription-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .subscription-heading h1 {
+            margin-bottom: 10px;
+            color: #17221b;
+        }
+
+        .subscription-heading p {
+            color: #68746d;
+            font-size: 15px;
+        }
+
+        .current-plan {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .current-plan h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .plan-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .plan-info-box {
+            background: #f5f7f6;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .plan-info-box span {
+            display: block;
+            color: #68746d;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .plan-info-box strong {
+            font-size: 18px;
+            color: #17221b;
+        }
+
+        .subscription-status-active {
+             color: #15803d !important;
+       }
+
+        .subscription-status-expired {
+             color: #dc2626 !important;
+       }
+
+        .subscription-status-cancelled {
+            color: #d97706 !important;
+       }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .plan-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .plan-card h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #008751;
+            margin: 15px 0;
+        }
+
+        .plan-price small {
+            font-size: 13px;
+            font-weight: 500;
+            color: #68746d;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .plan-card li {
+            padding: 8px 0;
+            color: #4d5952;
+            font-size: 14px;
+        }
+
+        .plan-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #008751;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .plan-button:hover {
+            background: #007044;
+        }
+
+        .plan-button.current {
+            background: #e5e7eb;
+            color: #4d5952;
+            cursor: default;
+        }
+
+        .subscription-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 800px) {
+            .plans {
+                grid-template-columns: 1fr;
+            }
+
+            .plan-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- APP TOP HEADER -->
+
+    <header class="app-header">
+
+        <button
+            type="button"
+            class="sidebar-menu-button"
+            onclick="toggleSidebar()"
+            aria-label="Open menu">
+            ☰
+        </button>
+
+        <span class="app-header-logo">
+            ₦
+        </span>
+
+        <span class="app-header-title">
+            Naija Invoice Maker
+        </span>
+
+    </header>
+
+
+    <!-- SIDEBAR -->
+
+    <aside id="sidebar" class="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="sidebar-title">
+                ₦ Naija Invoice Maker
+            </div>
+
+            <button
+                type="button"
+                class="sidebar-close"
+                onclick="closeSidebar()"
+                aria-label="Close menu">
+                ×
+            </button>
+
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <button
+                type="button"
+                class="sidebar-link"
+                onclick="window.location.href='dashboard.html'">
+                🏠 Dashboard
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                onclick="window.location.href='index.html'">
+                🧾 Create Invoice
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                onclick="window.location.href='invoice-history.html'">
+                📋 Invoice History
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                onclick="window.location.href='customers.html'">
+                👥 Customers
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                onclick="window.location.href='business.html'">
+                🏢 Business
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                onclick="window.location.href='settings.html'">
+                ⚙️ Settings
+            </button>
+
+            <button
+                type="button"
+                class="sidebar-link"
+                onclick="window.location.href='subscription.html'">
+                💳 Subscription
+            </button>
+
+            <div class="sidebar-divider"></div>
+
+            <button
+                type="button"
+                id="sidebarLogoutBtn"
+                class="sidebar-link">
+                🚪 Logout
+            </button>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- SIDEBAR OVERLAY -->
+
+    <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+        onclick="closeSidebar()">
+    </div>
+
+
+    <!-- SUBSCRIPTION CONTENT -->
+
+    <main class="subscription-container">
+
+        <div class="subscription-heading">
+
+            <h1>Subscription</h1>
+
+            <p>
+                Choose the plan that fits your business.
+            </p>
+
+        </div>
+
+
+        <!-- CURRENT PLAN -->
+
+        <section class="current-plan">
+
+            <h2>Current Subscription</h2>
+
+            <div class="plan-info">
+
+                <div class="plan-info-box">
+                    <span>Current Plan</span>
+                    <strong id="currentPlan">
+                        Loading...
+                    </strong>
+                </div>
+
+                <div class="plan-info-box">
+                    <span>Invoices This Month</span>
+                    <strong id="invoiceUsage">
+                        Loading...
+                    </strong>
+                </div>
+
+                <div class="plan-info-box">
+                    <span>Status</span>
+                    <strong id="subscriptionStatus">
+                        Loading...
+                    </strong>
+                </div>
+
+                <div class="plan-info-box">
+                   <span>Started</span>
+                   <strong id="subscriptionStarted">
+        —
+                    </strong>
+                </div>
+
+                <div class="plan-info-box">
+                   <span>Expires</span>
+                   <strong id="subscriptionExpires">
+        —
+                   </strong>
+               </div>
+
+               <div class="plan-info-box">
+                  <span>Payment Reference</span>
+                  <strong id="paymentReference">
+        —
+                  </strong>
+               </div>
+
+            </div>
+
+            <div id="subscriptionRenewalMessage"
+                 style="
+                    margin-top: 18px;
+                    padding: 14px 16px;
+                    background: #f0fdf4;
+                    border: 1px solid #bbf7d0;
+                    border-radius: 10px;
+                    color: #166534;
+                    font-size: 14px;
+                    text-align: center;
+                    font-weight: 600;
+                 ">
+           </div>
+
+        </section>
+
+
+        <!-- PLANS -->
+
+        <section class="plans">
+
+
+            <!-- FREE -->
+
+            <div class="plan-card">
+
+                <h2>Free</h2>
+
+                <div class="plan-price">
+                    ₦0
+                    <small>/month</small>
+                </div>
+
+                <ul>
+                    <li>✓ 3 invoices per month</li>
+                    <li>✓ Basic invoice creation</li>
+                    <li>✓ Customer management</li>
+                </ul>
+
+                <button
+                    type="button"
+                    id="freePlanButton"
+                    class="plan-button current"
+                    disabled>
+                    Current Plan
+                </button>
+
+            </div>
+
+
+            <!-- PRO MONTHLY -->
+
+            <div class="plan-card">
+
+                <h2>Pro Monthly</h2>
+
+                <div class="plan-price">
+                    ₦5,000
+                    <small>/month</small>
+                </div>
+
+                <ul>
+                    <li>✓ Unlimited invoices</li>
+                    <li>✓ Customer management</li>
+                    <li>✓ PDF invoices</li>
+                    <li>✓ WhatsApp sharing</li>
+                </ul>
+
+                <button
+                 type="button"
+                 id="proMonthlyButton"
+                 class="plan-button"
+                 onclick="startSubscription('pro_monthly')">
+                  Upgrade to Pro
+                </button>
+
+            </div>
+
+
+            <!-- PRO YEARLY -->
+
+            <div class="plan-card">
+
+                <h2>Pro Yearly</h2>
+
+                <div class="plan-price">
+                    ₦50,000
+                    <small>/year</small>
+                </div>
+
+                <ul>
+                    <li>✓ Unlimited invoices</li>
+                    <li>✓ Customer management</li>
+                    <li>✓ PDF invoices</li>
+                    <li>✓ WhatsApp sharing</li>
+                </ul>
+
+                <button
+                   type="button"
+                   id="proYearlyButton"
+                   class="plan-button"
+                   onclick="startSubscription('pro_yearly')">
+                      Upgrade to Pro
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <div
+            id="subscriptionMessage"
+            class="subscription-message">
+        </div>
+
+    </main>
+
+
+    <!-- SCRIPTS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="supabase-confige.js"></script>
+
+    <script src="navigation.js"></script>
+
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+    
+    <script>
+
+        let currentUser = null;
+
+
+        // ========================================
+        // CHECK LOGIN
+        // ========================================
+
+        async function checkUser() {
+
+            const {
+                data: {
+                    user
+                },
+                error
+            } = await supabaseClient.auth.getUser();
+
+
+            if (error || !user) {
+
+                window.location.href = "login.html";
+
+                return;
+
+            }
+
+
+            currentUser = user;
+
+            loadSubscription();
+
+        }
+
+
+        // ========================================
+        // LOAD SUBSCRIPTION
+        // ========================================
+
+        async function loadSubscription() {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("subscriptions")
+                .select("*")
+                .eq("user_id", currentUser.id)
+                .limit(1);
+
+
+            if (error) {
+
+                console.error(
+                    "Subscription loading error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            if (!data || data.length === 0) {
+
+                await createFreeSubscription();
+
+                return;
+
+            }
+
+            const subscription = data[0];
+
+// Check whether the Pro subscription has expired
+if (
+    subscription.plan !== "free" &&
+    subscription.expires_at &&
+    new Date(subscription.expires_at) < new Date()
+) {
+
+    // Mark the subscription as expired
+    await supabaseClient
+        .from("subscriptions")
+        .update({
+            status: "expired"
+        })
+        .eq("id", subscription.id);
+
+    document.getElementById("currentPlan").textContent =
+        "Free";
+
+    document.getElementById("subscriptionStatus").textContent =
+        "expired";
+
+    document.getElementById("subscriptionStarted").textContent =
+        subscription.started_at
+            ? new Date(subscription.started_at).toLocaleDateString()
+            : "—";
+
+    document.getElementById("subscriptionExpires").textContent =
+        new Date(subscription.expires_at).toLocaleDateString();
+
+    document.getElementById("paymentReference").textContent =
+        subscription.payment_reference || "—";
+
+        const renewalMessage =
+    document.getElementById("subscriptionRenewalMessage");
+
+if (renewalMessage) {
+    renewalMessage.textContent =
+        "Your Pro subscription has expired. Please upgrade again to continue using unlimited invoices.";
+}
+
+    loadInvoiceUsage();
+
+    return;
+}
+
+// Normal active subscription
+document.getElementById("currentPlan").textContent =
+    formatPlanName(subscription.plan);
+
+const statusElement =
+    document.getElementById("subscriptionStatus");
+
+statusElement.textContent =
+    subscription.status;
+
+statusElement.classList.remove(
+    "subscription-status-active",
+    "subscription-status-expired",
+    "subscription-status-cancelled"
+);
+
+if (subscription.status === "active") {
+    statusElement.classList.add(
+        "subscription-status-active"
+    );
+} else if (subscription.status === "expired") {
+    statusElement.classList.add(
+        "subscription-status-expired"
+    );
+} else if (subscription.status === "cancelled") {
+    statusElement.classList.add(
+        "subscription-status-cancelled"
+    );
+}
+
+document.getElementById("subscriptionStarted").textContent =
+    subscription.started_at
+        ? new Date(subscription.started_at).toLocaleDateString()
+        : "—";
+
+document.getElementById("subscriptionExpires").textContent =
+    subscription.expires_at
+        ? new Date(subscription.expires_at).toLocaleDateString()
+        : "—";
+
+document.getElementById("paymentReference").textContent =
+    subscription.payment_reference || "—";
+
+loadInvoiceUsage();
+
+   const monthlyButton =
+    document.getElementById("proMonthlyButton");
+
+const yearlyButton =
+    document.getElementById("proYearlyButton");
+
+if (monthlyButton) {
+    monthlyButton.textContent =
+        subscription.plan === "pro_monthly"
+            ? "Current Plan"
+            : "Upgrade to Pro";
+
+    monthlyButton.disabled =
+        subscription.plan === "pro_monthly";
+
+    monthlyButton.classList.toggle(
+        "current",
+        subscription.plan === "pro_monthly"
+    );
+}
+
+if (yearlyButton) {
+    yearlyButton.textContent =
+        subscription.plan === "pro_yearly"
+            ? "Current Plan"
+            : "Upgrade to Pro";
+
+    yearlyButton.disabled =
+        subscription.plan === "pro_yearly";
+
+    yearlyButton.classList.toggle(
+        "current",
+        subscription.plan === "pro_yearly"
+    );
+}
+
+           
+        }
+
+
+        // ========================================
+        // CREATE FREE SUBSCRIPTION
+        // ========================================
+
+        async function createFreeSubscription() {
+
+            const {
+                error
+            } = await supabaseClient
+                .from("subscriptions")
+                .insert({
+                    user_id: currentUser.id,
+                    plan: "free",
+                    status: "active",
+                    price: 0,
+                    billing_period: "monthly"
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Unable to create subscription:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            document.getElementById("currentPlan").textContent =
+                "Free";
+
+
+            document.getElementById("subscriptionStatus").textContent =
+               "active";
+
+           document.getElementById("subscriptionStarted").textContent =
+               new Date().toLocaleDateString();
+
+          document.getElementById("subscriptionExpires").textContent =
+              "—";
+
+           document.getElementById("paymentReference").textContent =
+             "—";
+
+          loadInvoiceUsage();
+
+        }
+
+
+        // ========================================
+        // LOAD INVOICE USAGE
+        // ========================================
+
+        async function loadInvoiceUsage() {
+
+            const firstDay = new Date();
+
+            firstDay.setDate(1);
+
+            firstDay.setHours(0, 0, 0, 0);
+
+
+            const nextMonth = new Date(
+                firstDay
+            );
+
+            nextMonth.setMonth(
+                nextMonth.getMonth() + 1
+            );
+
+
+            const {
+                count,
+                error
+            } = await supabaseClient
+                .from("invoices")
+                .select("id", {
+                    count: "exact",
+                    head: true
+                })
+                .eq("user_id", currentUser.id)
+                .gte(
+                    "created_at",
+                    firstDay.toISOString()
+                )
+                .lt(
+                    "created_at",
+                    nextMonth.toISOString()
+                );
+
+
+            if (error) {
+
+                console.error(
+                    "Invoice usage error:",
+                    error
+                );
+
+                return;
+
+            }
+
+
+            const subscriptionText =
+                document
+                    .getElementById("currentPlan")
+                    .textContent;
+
+
+            if (subscriptionText === "Free") {
+
+                document.getElementById("invoiceUsage").textContent =
+                    (count || 0) + " / 3";
+
+            } else {
+
+                document.getElementById("invoiceUsage").textContent =
+                    (count || 0) + " / Unlimited";
+
+            }
+
+        }
+
+
+        // ========================================
+        // FORMAT PLAN NAME
+        // ========================================
+
+        function formatPlanName(plan) {
+
+            if (plan === "pro_monthly") {
+                return "Pro Monthly";
+            }
+
+            if (plan === "pro_yearly") {
+                return "Pro Yearly";
+            }
+
+            return "Free";
+
+        }
+
+
+        // ========================================
+        // START SUBSCRIPTION
+        // ========================================
+
+        async function startSubscription(plan) {
+
+    try {
+
+        // --------------------------------
+        // CHECK PLAN
+        // --------------------------------
+
+        if (
+            plan !== "pro_monthly" &&
+            plan !== "pro_yearly"
+        ) {
+
+            alert("Invalid subscription plan.");
+            return;
+
+        }
+
+
+        // --------------------------------
+        // MESSAGE
+        // --------------------------------
+
+        const message =
+            document.getElementById(
+                "subscriptionMessage"
+            );
+
+        if (message) {
+
+            message.textContent =
+                "Preparing secure payment...";
+
+        }
+
+
+        // --------------------------------
+        // INITIALIZE PAYMENT
+        // --------------------------------
+
+        const {
+            data,
+            error
+        } = await supabaseClient.functions.invoke(
+            "paystack-initialize",
+            {
+                body: {
+                    plan: plan
+                }
+            }
+        );
+
+
+        if (error) {
+
+            console.error(
+                "Paystack initialization error:",
+                error
+            );
+
+            if (message) {
+
+                message.textContent =
+                    error.message ||
+                    "Unable to start payment.";
+
+            }
+
+            alert(
+                "Payment could not be started:\n\n" +
+                (error.message ||
+                    "Unable to start payment.")
+            );
+
+            return;
+
+        }
+
+
+        // --------------------------------
+        // CHECK RESPONSE
+        // --------------------------------
+
+        if (
+            !data ||
+            !data.success ||
+            !data.access_code ||
+            !data.reference
+        ) {
+
+            console.error(
+                "Invalid Paystack response:",
+                data
+            );
+
+            const errorMessage =
+                data?.error ||
+                "Paystack did not return a valid payment session.";
+
+            if (message) {
+
+                message.textContent =
+                    errorMessage;
+
+            }
+
+            alert(
+                "Payment could not be started:\n\n" +
+                errorMessage
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Payment initialized:",
+            data
+        );
+
+
+        // --------------------------------
+        // OPEN PAYSTACK
+        // --------------------------------
+
+        const popup =
+            new PaystackPop();
+
+
+        popup.resumeTransaction(
+            data.access_code
+        );
+
+
+        // --------------------------------
+        // WAIT FOR PAYMENT
+        // --------------------------------
+
+        if (message) {
+
+            message.textContent =
+                "Complete your payment in the Paystack window...";
+
+        }
+
+
+        // --------------------------------
+        // VERIFY PAYMENT
+        // --------------------------------
+
+        let attempts = 0;
+
+        const maxAttempts = 40;
+
+
+        const verifyPayment =
+            async function() {
+
+                attempts++;
+
+
+                console.log(
+                    "Checking payment...",
+                    attempts
+                );
+
+
+                const {
+                    data: verifyData,
+                    error: verifyError
+                } =
+                    await supabaseClient.functions.invoke(
+                        "paystack-verify",
+                        {
+                            body: {
+                                reference:
+                                    data.reference,
+
+                                plan:
+                                    plan
+                            }
+                        }
+                    );
+
+
+                console.log(
+                    "Payment verification:",
+                    verifyData,
+                    verifyError
+                );
+
+
+                // --------------------------------
+                // PAYMENT VERIFIED
+                // --------------------------------
+
+                if (
+                    !verifyError &&
+                    verifyData &&
+                    verifyData.success
+                ) {
+
+                    if (message) {
+
+                        message.textContent =
+                            "Payment successful! Your Pro subscription is now active.";
+
+                    }
+
+
+                    alert(
+                        "Payment successful!\n\n" +
+                        "Your Pro subscription is now active."
+                    );
+
+
+                    await loadSubscription();
+
+                    return;
+
+                }
+
+
+                // --------------------------------
+                // STOP AFTER TIMEOUT
+                // --------------------------------
+
+                if (
+                    attempts >= maxAttempts
+                ) {
+
+                    if (message) {
+
+                        message.textContent =
+                            "Payment could not be verified. Please check your Paystack transaction and try again.";
+
+                    }
+
+                    console.error(
+                        "Payment verification timed out:",
+                        verifyError,
+                        verifyData
+                    );
+
+                    return;
+
+                }
+
+
+                // --------------------------------
+                // TRY AGAIN
+                // --------------------------------
+
+                setTimeout(
+                    verifyPayment,
+                    3000
+                );
+
+            };
+
+
+        // Give Paystack a moment before
+        // checking the transaction.
+
+        setTimeout(
+            verifyPayment,
+            5000
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Subscription payment error:",
+            error
+        );
+
+
+        const message =
+            document.getElementById(
+                "subscriptionMessage"
+            );
+
+
+        if (message) {
+
+            message.textContent =
+                error?.message ||
+                "Something went wrong while starting payment.";
+
+        }
+
+
+        alert(
+            "Unable to start payment:\n\n" +
+            (
+                error?.message ||
+                "Something went wrong while starting payment."
+            )
+        );
+
+    }
+
+}
+        
+       
+
+
+        // ========================================
+        // START
+        // ========================================
+
+        checkUser();
+
+    </script>
+
+</body>
+
+</html>

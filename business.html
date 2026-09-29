@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Business Profile - Naija Invoice Maker</title>
+
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .business-card {
+            max-width: 650px;
+        }
+
+        .business-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d9dfdb;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        textarea:focus {
+            border-color: #008751;
+            box-shadow: 0 0 0 3px rgba(0, 135, 81, 0.08);
+        }
+
+        .page-description {
+            color: #68746d;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        .logout-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #68746d;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .logout-link:hover {
+            color: #008751;
+        }
+
+        @media (max-width: 600px) {
+            .business-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+
+        .business-page-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.business-page-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: white;
+}
+    </style>
+</head>
+
+<body>
+
+ <!-- APP TOP HEADER -->
+
+<header class="app-header">
+
+  <button
+    type="button"
+    class="sidebar-menu-button"
+    onclick="toggleSidebar()"
+    aria-label="Open menu">
+    ☰
+  </button>
+
+  <span class="app-header-logo">
+    ₦
+  </span>
+
+  <span class="app-header-title">
+    Naija Invoice Maker
+  </span>
+
+</header>   
+
+
+<!-- SIDEBAR -->
+
+<aside
+  id="sidebar"
+  class="sidebar">
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-title">
+      ₦ Naija Invoice Maker
+    </div>
+
+    <button
+      type="button"
+      class="sidebar-close"
+      onclick="closeSidebar()"
+      aria-label="Close menu">
+      ×
+    </button>
+
+  </div>
+
+
+  <nav class="sidebar-menu">
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='dashboard.html'">
+      🏠 Dashboard
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='index.html'">
+      🧾 Create Invoice
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='invoice-history.html'">
+      📋 Invoice History
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='customers.html'">
+      👥 Customers
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='business.html'">
+      🏢 Business
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='settings.html'">
+      ⚙️ Settings
+    </button>
+
+    <button
+       type="button"
+       class="sidebar-link"
+       onclick="window.location.href='subscription.html'">
+        💳 Subscription
+    </button>
+
+    <div class="sidebar-divider"></div>
+
+    <button
+      type="button"
+      id="sidebarLogoutBtn"
+      class="sidebar-link">
+      🚪 Logout
+    </button>
+
+  </nav>
+
+</aside>
+
+
+<!-- SIDEBAR OVERLAY -->
+
+<div
+  id="sidebarOverlay"
+  class="sidebar-overlay"
+  onclick="closeSidebar()">
+</div>
+
+<main class="auth-container">
+
+    <div class="auth-card business-card">
+
+        <div class="business-page-logo-wrapper">
+    <img
+        id="businessLogoPreview"
+        class="business-page-logo"
+        src=""
+        alt="Business Logo"
+        style="display: none;"
+    >
+</div>
+
+<div class="auth-logo">
+    <span>₦</span>
+    Naija Invoice Maker
+</div>
+        <h1>Business Profile</h1>
+
+        <p class="page-description">
+            Enter your business information. This information
+            will automatically appear on the invoices you create.
+        </p>
+
+        <form id="businessForm">
+
+            <div class="business-grid">
+
+                <!-- Business Name -->
+
+                <div class="form-group full-width">
+
+                    <label for="businessName">
+                        Business Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="businessName"
+                        placeholder="e.g. Muhammad Enterprise"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Contact Name -->
+
+                <div class="form-group">
+
+                    <label for="contactName">
+                        Contact Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="contactName"
+                        placeholder="e.g. Muhammad Abba"
+                    >
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="08012345678"
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="businessEmail">
+                        Business Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="businessEmail"
+                        placeholder="business@example.com"
+                    >
+
+                </div>
+
+
+                <!-- Invoice Prefix -->
+
+                <div class="form-group">
+
+                    <label for="invoicePrefix">
+                        Invoice Prefix
+                    </label>
+
+                    <input
+                        type="text"
+                        id="invoicePrefix"
+                        value="NIM"
+                        placeholder="NIM"
+                    >
+
+                </div>
+
+
+                <!-- Address -->
+
+                <div class="form-group full-width">
+
+                    <label for="address">
+                        Business Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        placeholder="Enter your business address"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Bank Name -->
+
+                <div class="form-group">
+
+                    <label for="bankName">
+                        Bank Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="bankName"
+                        placeholder="e.g. GTBank"
+                    >
+
+                </div>
+
+
+                <!-- Account Name -->
+
+                <div class="form-group">
+
+                    <label for="accountName">
+                        Account Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountName"
+                        placeholder="Account name"
+                    >
+
+                </div>
+
+
+                <!-- Account Number -->
+
+                <div class="form-group">
+
+                    <label for="accountNumber">
+                        Account Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountNumber"
+                        placeholder="0123456789"
+                        maxlength="20"
+                    >
+
+                </div>
+
+
+                <!-- VAT -->
+
+                <div class="form-group">
+
+                    <label for="defaultVat">
+                        Default VAT (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="defaultVat"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                        value="0"
+                    >
+
+                </div>
+
+
+                <!-- Default Notes -->
+
+                <div class="form-group full-width">
+
+                    <label for="defaultNotes">
+                        Default Invoice Notes
+                    </label>
+
+                    <textarea
+                        id="defaultNotes"
+                        placeholder="e.g. Thank you for your business."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="businessMessage"
+                class="message"
+            ></div>
+
+
+            <button
+                type="submit"
+                class="auth-button"
+                id="saveBusinessButton"
+            >
+                Save Business Information
+            </button>
+
+        </form>
+
+
+        <div
+            class="logout-link"
+            id="logoutBusiness"
+        >
+            Logout
+        </div>
+
+    </div>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-confige.js"></script>
+
+<script src="navigation.js"></script>
+
+<script>
+
+    // ========================================
+    // CHECK LOGIN
+    // ========================================
+
+    let currentUser = null;
+
+
+    async function checkUser() {
+
+        const {
+            data: {
+                user
+            },
+            error
+        } = await supabaseClient.auth.getUser();
+
+
+        if (error || !user) {
+
+            window.location.href = "login.html";
+
+            return;
+
+        }
+
+
+        currentUser = user;
+
+        console.log("Logged in user:", user.email);
+
+        loadBusiness();
+
+    }
+
+
+    // ========================================
+    // LOAD EXISTING BUSINESS
+    // ========================================
+
+    async function loadBusiness() {
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+            .from("businesses")
+            .select("*")
+            .eq("user_id", currentUser.id)
+            .limit(1);
+
+
+        if (error) {
+
+            console.error(
+                "Error loading business:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        if (!data || data.length === 0) {
+
+            console.log(
+                "No business profile found yet."
+            );
+
+            return;
+
+        }
+
+
+        const business = data[0];
+
+        const logo = document.getElementById("businessLogoPreview");
+
+if (business.logo_url && logo) {
+    logo.src = business.logo_url;
+    logo.style.display = "block";
+} else if (logo) {
+    logo.style.display = "none";
+}
+
+
+        document.getElementById("businessName").value =
+            business.business_name || "";
+
+        document.getElementById("contactName").value =
+            business.contact_name || "";
+
+        document.getElementById("phone").value =
+            business.phone || "";
+
+        document.getElementById("businessEmail").value =
+            business.email || "";
+
+        document.getElementById("address").value =
+            business.address || "";
+
+        document.getElementById("bankName").value =
+            business.bank_name || "";
+
+        document.getElementById("accountName").value =
+            business.account_name || "";
+
+        document.getElementById("accountNumber").value =
+            business.account_number || "";
+
+        document.getElementById("invoicePrefix").value =
+            business.invoice_prefix || "NIM";
+
+        document.getElementById("defaultVat").value =
+            business.default_vat ?? 0;
+
+        document.getElementById("defaultNotes").value =
+            business.default_notes || "";
+
+    }
+
+    // ========================================
+// SAVE BUSINESS
+// ========================================
+
+document
+    .getElementById("businessForm")
+    .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const button =
+            document.getElementById("saveBusinessButton");
+
+        const message =
+            document.getElementById("businessMessage");
+
+        button.disabled = true;
+        button.textContent = "Saving...";
+
+        try {
+
+            // Get the currently logged-in user directly
+            const {
+                data: {
+                    user
+                },
+                error: userError
+            } = await supabaseClient.auth.getUser();
+
+
+            // Make sure a user exists
+            if (userError) {
+                throw userError;
+            }
+
+            if (!user) {
+                throw new Error(
+                    "You are not logged in. Please login again."
+                );
+            }
+
+
+            console.log(
+                "Saving business for user:",
+                user.id
+            );
+
+
+            // Get business name
+            const businessName =
+                document
+                    .getElementById("businessName")
+                    .value
+                    .trim();
+
+
+            if (!businessName) {
+
+                throw new Error(
+                    "Business name is required."
+                );
+
+            }
+
+
+            // Collect form information
+            const businessData = {
+
+                user_id: user.id,
+
+                business_name:
+                    businessName,
+
+                contact_name:
+                    document
+                        .getElementById("contactName")
+                        .value
+                        .trim(),
+
+                phone:
+                    document
+                        .getElementById("phone")
+                        .value
+                        .trim(),
+
+                email:
+                    document
+                        .getElementById("businessEmail")
+                        .value
+                        .trim(),
+
+                address:
+                    document
+                        .getElementById("address")
+                        .value
+                        .trim(),
+
+                bank_name:
+                    document
+                        .getElementById("bankName")
+                        .value
+                        .trim(),
+
+                account_name:
+                    document
+                        .getElementById("accountName")
+                        .value
+                        .trim(),
+
+                account_number:
+                    document
+                        .getElementById("accountNumber")
+                        .value
+                        .trim(),
+
+                invoice_prefix:
+                    document
+                        .getElementById("invoicePrefix")
+                        .value
+                        .trim() || "NIM",
+
+                default_vat:
+                    Number(
+                        document
+                            .getElementById("defaultVat")
+                            .value
+                    ) || 0,
+
+                default_notes:
+                    document
+                        .getElementById("defaultNotes")
+                        .value
+                        .trim(),
+
+                updated_at:
+                    new Date().toISOString()
+            };
+
+
+            // Check whether this user already has a business
+            const {
+                data: existingBusiness,
+                error: findError
+            } = await supabaseClient
+                .from("businesses")
+                .select("id")
+                .eq("user_id", user.id)
+                .limit(1);
+
+
+            if (findError) {
+                throw findError;
+            }
+
+
+            let result;
+
+
+            // ========================================
+            // UPDATE EXISTING BUSINESS
+            // ========================================
+
+            if (
+                existingBusiness &&
+                existingBusiness.length > 0 &&
+                existingBusiness[0] &&
+                existingBusiness[0].id
+            ) {
+
+                console.log("Updating existing business...");
+
+                result = await supabaseClient
+                    .from("businesses")
+                    .update(businessData)
+                    .eq(
+                        "id",
+                        existingBusiness[0].id
+                    );
+
+            }
+
+            // ========================================
+            // CREATE NEW BUSINESS
+            // ========================================
+
+            else {
+
+                console.log("Creating new business...");
+
+                result = await supabaseClient
+                    .from("businesses")
+                    .insert(businessData);
+
+            }
+
+
+            // Check database error
+            if (result.error) {
+                throw result.error;
+            }
+
+
+            console.log(
+                "Business saved successfully!"
+            );
+
+
+            showMessage(
+                message,
+                "Business information saved successfully!",
+                "success"
+            );
+
+
+            button.textContent = "Saved ✓";
+
+
+            // Go back to dashboard
+            setTimeout(function() {
+
+                window.location.href =
+                    "index.html";
+
+            }, 1200);
+
+
+        } catch (error) {
+
+            console.error(
+                "Business save error:",
+                error
+            );
+
+
+            showMessage(
+                message,
+                error.message ||
+                "Unable to save business information.",
+                "error"
+            );
+
+
+            button.disabled = false;
+
+            button.textContent =
+                "Save Business Information";
+
+        }
+
+    });
+
+
+
+    // ========================================
+    // LOGOUT
+    // ========================================
+
+    document
+        .getElementById("logoutBusiness")
+        .addEventListener("click", async function() {
+
+            await supabaseClient.auth.signOut();
+
+            window.location.href =
+                "login.html";
+
+        });
+
+
+    // ========================================
+    // MESSAGE
+    // ========================================
+
+    function showMessage(
+        element,
+        text,
+        type
+    ) {
+
+        element.textContent = text;
+
+        element.className =
+            "message " + type;
+
+    }
+
+
+    // Start
+
+    checkUser();
+
+</script>
+
+</body>
+</html>

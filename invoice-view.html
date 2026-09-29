@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Invoice - Naija Invoice Maker</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    body {
+      background: #f5f7f6;
+    }
+
+    .invoice-view-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .invoice-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    .view-btn {
+      border: 1px solid #d0d5dd;
+      background: white;
+      padding: 11px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .view-btn:hover {
+      background: #f9fafb;
+    }
+
+    .view-btn-primary {
+      background: #008f5a;
+      border-color: #008f5a;
+      color: white;
+    }
+
+    .invoice-paper {
+      background: white;
+      padding: 50px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+      border-radius: 8px;
+    }
+
+    .invoice-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid #008f5a;
+    }
+
+    .business-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: #17221b;
+      margin-bottom: 10px;
+    }
+
+    .invoice-business {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.invoice-logo-wrapper {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.invoice-business-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+    .business-details,
+    .customer-details {
+      color: #667085;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .invoice-title {
+      text-align: right;
+    }
+
+    .invoice-title h1 {
+      margin: 0;
+      font-size: 36px;
+      color: #008f5a;
+    }
+
+    .invoice-number {
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    .invoice-info {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      margin: 30px 0;
+    }
+
+    .info-box {
+      flex: 1;
+    }
+
+    .info-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #667085;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .info-value {
+      font-size: 15px;
+      color: #17221b;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+    }
+
+    .items-table th {
+      background: #f2f4f7;
+      padding: 13px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .items-table td {
+      padding: 14px 13px;
+      border-bottom: 1px solid #eaecf0;
+      font-size: 14px;
+    }
+
+    .text-right {
+      text-align: right !important;
+    }
+
+    .totals-section {
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .totals {
+      width: 320px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      color: #475467;
+    }
+
+    .grand-total {
+      border-top: 2px solid #17221b;
+      margin-top: 10px;
+      padding-top: 15px;
+      font-size: 20px;
+      font-weight: 800;
+      color: #17221b;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-paid {
+      background: #dcfae6;
+      color: #067647;
+    }
+
+    .status-unpaid {
+      background: #fff4cc;
+      color: #a15c00;
+    }
+
+    .status-overdue {
+      background: #fee4e2;
+      color: #b42318;
+    }
+
+    .status-draft {
+      background: #f2f4f7;
+      color: #344054;
+    }
+
+    .notes-section {
+      margin-top: 45px;
+      padding-top: 20px;
+      border-top: 1px solid #eaecf0;
+    }
+
+    .notes-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .notes-text {
+      color: #667085;
+      white-space: pre-wrap;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+      color: #667085;
+    }
+
+    .error {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 20px;
+      background: #fee4e2;
+      color: #b42318;
+      border-radius: 8px;
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+
+      .invoice-paper {
+        padding: 25px;
+      }
+
+      .invoice-top,
+      .invoice-info {
+        flex-direction: column;
+      }
+
+      .invoice-title {
+        text-align: left;
+      }
+
+      .invoice-title h1 {
+        font-size: 30px;
+      }
+
+      .items-table {
+        min-width: 650px;
+      }
+
+      .table-wrapper {
+        overflow-x: auto;
+      }
+
+    }
+
+    @media print {
+
+      body {
+        background: white;
+      }
+
+      .invoice-view-container {
+        margin: 0;
+        max-width: none;
+        padding: 0;
+      }
+
+      .invoice-toolbar {
+        display: none;
+      }
+
+      .invoice-paper {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 20px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <main class="invoice-view-container">
+
+    <!-- TOOLBAR -->
+
+    <div class="invoice-toolbar">
+
+      <div class="toolbar-left">
+
+        <button
+          type="button"
+          class="view-btn"
+          onclick="goBack()">
+
+          ← Back
+
+        </button>
+
+      </div>
+
+
+      <div class="toolbar-right">
+
+        <button
+          type="button"
+          class="view-btn"
+          onclick="goToHistory()">
+
+          Invoice History
+
+        </button>
+
+        <button
+          type="button"
+          class="view-btn"
+          onclick="editInvoice()">
+
+          ✏️ Edit Invoice
+
+        </button>
+
+        <button
+          type="button"
+          class="view-btn"
+          onclick="duplicateInvoice()">
+
+         📋 Duplicate Invoice
+
+         </button>
+
+
+        <button
+          type="button"
+          class="view-btn view-btn-primary"
+          onclick="printInvoice()">
+
+          🖨 Print Invoice
+
+        </button>
+        
+        <button
+          type="button"
+          class="view-btn"
+          onclick="shareInvoiceWhatsApp()">
+
+         📱 WhatsApp
+
+         </button>
+
+         <button
+          type="button"
+          class="view-btn"
+          onclick="markInvoiceAsPaid()">
+
+          ✅ Mark as Paid
+
+         </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div
+      id="errorMessage"
+      class="error">
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+      id="loading"
+      class="loading">
+
+      Loading invoice...
+
+    </div>
+
+
+    <!-- INVOICE -->
+
+    <div
+      id="invoicePaper"
+      class="invoice-paper"
+      style="display:none;">
+
+
+      <!-- TOP -->
+
+      <div class="invoice-top">
+
+  <div class="invoice-business">
+
+    <div class="invoice-logo-wrapper">
+
+      <img
+        id="businessLogo"
+        class="invoice-business-logo"
+        src=""
+        alt="Business Logo"
+        style="display: none;"
+      >
+
+    </div>
+
+    <div>
+
+      <div
+        id="businessName"
+        class="business-name">
+      </div>
+
+      <div
+        id="businessDetails"
+        class="business-details">
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="invoice-title">
+
+    <h1>
+      INVOICE
+    </h1>
+
+    <div
+      id="invoiceNumber"
+      class="invoice-number">
+    </div>
+
+  </div>
+
+</div>
+
+      
+
+      <!-- CUSTOMER + DATES -->
+
+      <div class="invoice-info">
+
+        <div class="info-box">
+
+          <div class="info-title">
+            Bill To
+          </div>
+
+          <div
+            id="customerDetails"
+            class="customer-details">
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-title">
+            Invoice Date
+          </div>
+
+          <div
+            id="invoiceDate"
+            class="info-value">
+          </div>
+
+          <br>
+
+          <div class="info-title">
+            Due Date
+          </div>
+
+          <div
+            id="dueDate"
+            class="info-value">
+          </div>
+
+          <br>
+
+          <div class="info-title">
+            Status
+          </div>
+
+          <div
+            id="invoiceStatus">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ITEMS -->
+
+      <div class="table-wrapper">
+
+        <table class="items-table">
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Description
+              </th>
+
+              <th class="text-right">
+                Qty
+              </th>
+
+              <th class="text-right">
+                Unit Price
+              </th>
+
+              <th class="text-right">
+                Total
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody
+            id="itemsBody">
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- TOTALS -->
+
+      <div class="totals-section">
+
+        <div class="totals">
+
+          <div class="total-row">
+
+            <span>
+              Subtotal
+            </span>
+
+            <strong
+              id="subtotal">
+            </strong>
+
+          </div>
+
+
+          <div
+            id="discountRow"
+            class="total-row">
+
+            <span>
+              Discount
+            </span>
+
+            <strong
+              id="discount">
+            </strong>
+
+          </div>
+
+
+          <div
+            id="vatRow"
+            class="total-row">
+
+            <span
+              id="vatLabel">
+              VAT
+            </span>
+
+            <strong
+              id="vat">
+            </strong>
+
+          </div>
+
+
+          <div class="total-row grand-total">
+
+            <span>
+              Total
+            </span>
+
+            <strong
+              id="total">
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- NOTES -->
+
+      <div
+        id="notesSection"
+        class="notes-section">
+
+        <div class="notes-title">
+          Notes
+        </div>
+
+        <div
+          id="notes"
+          class="notes-text">
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="supabase-confige.js"></script>
+
+  <script src="invoice-view.js"></script>
+
+</body>
+
+</html>

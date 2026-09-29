@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Settings - Naija Invoice Maker</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css">
+
+  <style>
+
+    .settings-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .settings-header {
+      margin-bottom: 30px;
+    }
+
+    .settings-header h1 {
+      margin: 0 0 6px;
+      font-size: 32px;
+    }
+
+    .settings-header p {
+      margin: 0;
+      color: #667085;
+    }
+
+    .settings-card {
+      background: white;
+      border: 1px solid #e4e7ec;
+      border-radius: 12px;
+      padding: 26px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .settings-card h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      color: #17221b;
+    }
+
+    .settings-card-description {
+      margin: 0 0 22px;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .settings-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .settings-field.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .settings-field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #344054;
+    }
+
+    .settings-field input,
+    .settings-field textarea,
+    .settings-field select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 13px;
+      border: 1px solid #d0d5dd;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: white;
+    }
+
+    .settings-field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .settings-field input:focus,
+    .settings-field textarea:focus,
+    .settings-field select:focus {
+      outline: none;
+      border-color: #008f5a;
+      box-shadow: 0 0 0 3px rgba(0,143,90,0.10);
+    }
+
+    .settings-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 24px;
+    }
+
+    .save-settings-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 13px 22px;
+      background: #008f5a;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .save-settings-btn:hover {
+      background: #007a4d;
+    }
+
+    .settings-message {
+      display: none;
+      padding: 13px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .settings-message.success {
+      background: #dcfae6;
+      color: #067647;
+    }
+
+    .settings-message.error {
+      background: #fee4e2;
+      color: #b42318;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px;
+      background: #f8fafc;
+      border: 1px solid #e4e7ec;
+      border-radius: 10px;
+    }
+
+    .logo-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      border: 1px solid #d0d5dd;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-size: 28px;
+      font-weight: 700;
+      color: #008f5a;
+    }
+
+    .logo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-info {
+      flex: 1;
+    }
+
+    .logo-info strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #17221b;
+    }
+
+    .logo-info p {
+      margin: 0 0 12px;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    .settings-secondary-btn {
+      border: 1px solid #d0d5dd;
+      background: white;
+      color: #17221b;
+      border-radius: 7px;
+      padding: 9px 13px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .settings-secondary-btn:hover {
+      background: #f9fafb;
+    }
+
+    @media (max-width: 700px) {
+
+      .settings-container {
+        padding: 25px 15px;
+      }
+
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-field.full-width {
+        grid-column: auto;
+      }
+
+      .logo-area {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .settings-actions {
+        justify-content: stretch;
+      }
+
+      .save-settings-btn {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <body>
+
+  <!-- APP TOP HEADER -->
+
+  <header class="app-header">
+
+    <button
+      type="button"
+      class="sidebar-menu-button"
+      onclick="toggleSidebar()"
+      aria-label="Open menu">
+      ☰
+    </button>
+
+    <span class="app-header-logo">
+      ₦
+    </span>
+
+    <span class="app-header-title">
+      Naija Invoice Maker
+    </span>
+
+  </header>
+
+
+  <!-- SIDEBAR -->
+
+
+<!-- SIDEBAR -->
+
+<aside
+  id="sidebar"
+  class="sidebar">
+
+  <div class="sidebar-header">
+
+    <div class="sidebar-title">
+      ₦ Naija Invoice Maker
+    </div>
+
+    <button
+      type="button"
+      class="sidebar-close"
+      onclick="closeSidebar()"
+      aria-label="Close menu">
+      ×
+    </button>
+
+  </div>
+
+
+  <nav class="sidebar-menu">
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='dashboard.html'">
+      🏠 Dashboard
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='index.html'">
+      🧾 Create Invoice
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='invoice-history.html'">
+      📋 Invoice History
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='customers.html'">
+      👥 Customers
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='business.html'">
+      🏢 Business
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-link"
+      onclick="window.location.href='settings.html'">
+      ⚙️ Settings
+    </button>
+
+    <button
+       type="button"
+       class="sidebar-link"
+       onclick="window.location.href='subscription.html'">
+        💳 Subscription
+    </button>
+
+    <div class="sidebar-divider"></div>
+
+    <button
+      type="button"
+      id="sidebarLogoutBtn"
+      class="sidebar-link">
+      🚪 Logout
+    </button>
+
+  </nav>
+
+</aside>
+
+
+<!-- SIDEBAR OVERLAY -->
+
+<div
+  id="sidebarOverlay"
+  class="sidebar-overlay"
+  onclick="closeSidebar()">
+</div>
+
+
+  <!-- SETTINGS -->
+
+  <main class="settings-container">
+
+    <div class="settings-header">
+
+      <h1>
+        Settings
+      </h1>
+
+      <p>
+        Manage your business information, invoice defaults and bank details.
+      </p>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <div
+      id="settingsMessage"
+      class="settings-message">
+    </div>
+
+
+    <!-- BUSINESS INFORMATION -->
+
+    <section class="settings-card">
+
+      <h2>
+        Business Information
+      </h2>
+
+      <p class="settings-card-description">
+        This information will appear on your invoices.
+      </p>
+
+      <div class="settings-grid">
+
+        <div class="settings-field">
+
+          <label for="businessName">
+            Business Name
+          </label>
+
+          <input
+            type="text"
+            id="businessName"
+            placeholder="Your business name">
+
+        </div>
+
+
+        <div class="settings-field">
+
+          <label for="contactName">
+            Contact Name
+          </label>
+
+          <input
+            type="text"
+            id="contactName"
+            placeholder="Your name">
+
+        </div>
+
+
+        <div class="settings-field">
+
+          <label for="businessPhone">
+            Phone
+          </label>
+
+          <input
+            type="tel"
+            id="businessPhone"
+            placeholder="08012345678">
+
+        </div>
+
+
+        <div class="settings-field">
+
+          <label for="businessEmail">
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="businessEmail"
+            placeholder="business@example.com">
+
+        </div>
+
+
+        <div class="settings-field full-width">
+
+          <label for="businessAddress">
+            Business Address
+          </label>
+
+          <textarea
+            id="businessAddress"
+            placeholder="Enter your business address"></textarea>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BUSINESS LOGO -->
+
+    <section class="settings-card">
+
+      <h2>
+        Business Logo
+      </h2>
+
+      <p class="settings-card-description">
+        Your logo can be displayed on your invoices.
+      </p>
+
+      <div class="logo-area">
+
+        <div
+          id="logoPreview"
+          class="logo-preview">
+
+          ₦
+
+        </div>
+
+        <div class="logo-info">
+
+          <strong>
+            Business Logo
+          </strong>
+
+          <p>
+            Upload your busniess logo. PNG, JPEG oe WEBP recommended.
+          </p>
+
+          <input
+  type="file"
+  id="logoInput"
+  accept="image/png,image/jpeg,image/webp"
+  style="display:none;">
+
+<button
+  type="button"
+  id="uploadLogoBtn"
+  class="settings-secondary-btn">
+
+  Upload Logo
+
+</button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- INVOICE SETTINGS -->
+
+    <section class="settings-card">
+
+      <h2>
+        Invoice Settings
+      </h2>
+
+      <p class="settings-card-description">
+        Set the defaults used when creating new invoices.
+      </p>
+
+      <div class="settings-grid">
+
+        <div class="settings-field">
+
+          <label for="invoicePrefix">
+            Invoice Prefix
+          </label>
+
+          <input
+            type="text"
+            id="invoicePrefix"
+            placeholder="ABC"
+            maxlength="10">
+
+        </div>
+
+
+        <div class="settings-field">
+
+          <label for="defaultVat">
+            Default VAT (%)
+          </label>
+
+          <input
+            type="number"
+            id="defaultVat"
+            min="0"
+            max="100"
+            step="0.01"
+            placeholder="0">
+
+        </div>
+
+
+        <div class="settings-field full-width">
+
+          <label for="defaultNotes">
+            Default Invoice Notes
+          </label>
+
+          <textarea
+            id="defaultNotes"
+            placeholder="Thank you for your business."></textarea>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BANK DETAILS -->
+
+    <section class="settings-card">
+
+      <h2>
+        Bank Details
+      </h2>
+
+      <p class="settings-card-description">
+        These details can be displayed on your invoices for customer payments.
+      </p>
+
+      <div class="settings-grid">
+
+        <div class="settings-field">
+
+          <label for="bankName">
+            Bank Name
+          </label>
+
+          <input
+            type="text"
+            id="bankName"
+            placeholder="Bank name">
+
+        </div>
+
+
+        <div class="settings-field">
+
+          <label for="accountName">
+            Account Name
+          </label>
+
+          <input
+            type="text"
+            id="accountName"
+            placeholder="Account name">
+
+        </div>
+
+
+        <div class="settings-field">
+
+          <label for="accountNumber">
+            Account Number
+          </label>
+
+          <input
+            type="text"
+            id="accountNumber"
+            placeholder="Account number">
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SAVE -->
+
+    <div class="settings-actions">
+
+      <button
+        type="button"
+        id="saveSettingsBtn"
+        class="save-settings-btn">
+
+        Save Settings
+
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="supabase-confige.js"></script>
+
+  <script src="navigation.js"></script>
+
+  <script src="settings.js"></script>
+
+</body>
+
+</html>
